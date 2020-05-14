@@ -1,5 +1,26 @@
 {
   "dependencies": {
-    "node-fetch": "^2.6.0"
-  }
+    "cowsay": "^1.4.0",
+    "node-fetch": "^2.6.0",
+    "table": "^5.4.6"
+  },
+  "name": "temperature-algorithm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "bin": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pharesdiego/temperature-check-algorithm.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pharesdiego/temperature-check-algorithm/issues"
+  },
+  "homepage": "https://github.com/pharesdiego/temperature-check-algorithm#readme",
+  "description": ""
 }

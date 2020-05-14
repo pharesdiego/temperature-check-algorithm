@@ -1,16 +1,18 @@
+#!/usr/bin/env node
 /**
  * AT: Ambient Temperature
  * FH: Forehead Temperature
  */
 
-const fetch = require("node-fetch");
-const readline = require("readline")
-  .createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
+process.argv.slice(2).length < 2 && process.exit();
 
-const url = "http://api.openweathermap.org/data/2.5/weather?q=medellin,co&APPID=91f0c1168a43d953d36187844439b308&units=metric";
+const fetch = require("node-fetch");
+const { table } = require("table");
+const { say } = require("cowsay");
+
+const [foreheadTemperature, city] = process.argv.slice(2);
+
+const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=91f0c1168a43d953d36187844439b308&units=metric`;
 
 const FHIncreaseRateForEachOneDegreeIncreaseInAT = 0.5;
 
@@ -33,20 +35,16 @@ const getResult = (sum, at) =>
   const expectedFTBasedOnAT =
     Math.round(getResult(getPercentage(getPercentage(at, 100, maxATAtWhichFTStopsIncreasing), 0.199, 100), at) * 10) / 10;
 
-  const foreheadTemperature = await new Promise((resolve) => {
-    readline.question("Sensor's detected temperature:", (detectedTemperature) => {
-      resolve(detectedTemperature);
-      readline.close();
-    });
-  });
-
   const [minExpectedFT, maxExpectedFT] = [expectedFTBasedOnAT - hardwareAccuracyRange * 2, expectedFTBasedOnAT + hardwareAccuracyRange];
 
   console.log(
-    `Forehead temperature should be between ${minExpectedFT} and ${maxExpectedFT}\n`,
-    isInRange(minExpectedFT, +foreheadTemperature, maxExpectedFT)
-      ? `Your forehead temperature (${foreheadTemperature}°) is between normal range`
-      : `Your forehead temperature (${foreheadTemperature}°) is not in the normal range`
+    table(Object.entries(data.main)),
+    `\nForehead temperature should be between ${minExpectedFT} and ${maxExpectedFT}\n`,
+    say({
+      text: isInRange(minExpectedFT, +foreheadTemperature, maxExpectedFT)
+        ? `Your forehead temperature (${foreheadTemperature}°) is between normal range`
+        : `Your forehead temperature (${foreheadTemperature}°) is not in the normal range`,
+    })
   );
 })();
 
