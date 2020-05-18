@@ -26,8 +26,8 @@ const getPercentage = (x, y, z) => (x * y) / z;
 
 const isInRange = (min, tested, max) => min <= tested && tested <= max;
 
-const getResult = (sum, at) =>
-  ((FHIncreaseRateForEachOneDegreeIncreaseInAT - sum) * at) + foreheadTemperatureAtFreezingTemperature;
+const getResult = (deceleration, at) =>
+  ((FHIncreaseRateForEachOneDegreeIncreaseInAT - deceleration) * at) + foreheadTemperatureAtFreezingTemperature;
 
 (async () => {
   const data = await (await fetch(url)).json();
