@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "cowsay": "^1.4.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "table": "^5.4.6"
   },
   "name": "temperature-algorithm",
